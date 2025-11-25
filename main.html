@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Skins Dashboard | Avanzado</title>
+    <style>
+    
+        :root {
+            --primary-color: #f1c40f;
+            --secondary-color: #3498db; 
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --background-dark: #2c3e50;
+            --card-background: #34495e;
+            --text-light: #ecf0f1;
+            --border-radius: 8px;
+            --font-mono: 'Courier New', monospace;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        .main-body {} 
+
+
+        .header {
+            background-color: #34495e;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        .btn-secondary {
+            padding: 8px 15px;
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #c0392b;
+        }
+
+      
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columnas principales */
+            gap: 30px;
+            padding: 30px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .card {
+            background-color: var(--card-background);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            min-height: 250px;
+        }
+        .card h2 { color: var(--primary-color); margin-top: 0;}
+
+        .api-data { grid-column: 1 / 2; }
+        .market-predictor { grid-column: 2 / 3; }
+        .market-predictor h3 { margin-top: 10px; color: var(--secondary-color); }
+        .trend-value { font-family: var(--font-mono); font-size: 1.5rem; font-weight: bold; margin-top: 5px;}
+
+    
+        .stats-data { grid-column: 3 / 4; }
+        .stats-data ul { list-style: none; padding: 0; }
+        .stats-data li { border-bottom: 1px solid #44607a; padding: 10px 0; display: flex; justify-content: space-between; font-size: 0.95rem;}
+        .stats-data li:last-child { border-bottom: none; }
+        .rarity-color { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+
+
+        
+        .case-game {
+            grid-column: 1 / 4; 
+            text-align: center;
+            background-color: #1a252f;
+        }
+        .case-game button {
+            padding: 10px 20px;
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 15px;
+        }
+        #result-box {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 30px 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            min-height: 50px;
+            width: 80%;
+            border: 3px solid var(--primary-color);
+            color: black;
+            transition: background-color 0.5s, transform 0.2s;
+        }
+        #roll-result { margin-top: 15px; font-size: 1.1rem; }
+
+       
+        .skin-card {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            background-color: #44607a;
+        }
+        .skin-card img {
+            max-width: 100%;
+            height: auto;
+            max-height: 150px;
+            margin: 10px 0;
+            border-radius: 4px;
+            background-color: #1a252f;
+        }
+        .skin-card p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+        
+    </style>
+</head>
+<body class="main-body">
+    <header class="header">
+        <h1>Bienvenido/a a CS Skins!</h1>
+        <button id="logout-btn" class="btn-secondary">Cerrar Sesión</button>
+    </header>
+
+    <div class="content-wrapper">
+        
+        <section class="card api-data">
+            <h2>Skin Destacada</h2>
+            <p>Datos de skins populares cargados </p>
+            <div id="api-info">Cargando datiños</div>
+        </section>
+
+        <section class="card market-predictor">
+            <h2> Previsión de Valor</h2>
+            <p>movimiento del precio de una "caja" o artículo clave.</p>
+            <h3>Caja de Fenris</h3>
+            <div id="market-trend" class="trend-value">Cargando...</div>
+            <p id="trend-description" style="font-size: 0.9rem;"></p>
+        </section>
+
+        <section class="card stats-data">
+            <h2>Datos de Rareza</h2>
+            <p>Probabilidades oficiales de obtención en cajas de CS.</p>
+            <ul id="rarity-stats">
+                </ul>
+        </section>
+        
+        <section class="card case-game">
+            <h2> Apertura de Caja</h2>
+            <p>la obtención de una skin y mira su rareza (probabilidades reales de CS).</p>
+            
+            <button id="roll-dice-btn">Abrir Caja</button>
+            <div id="result-box">Gira </div>
+            <p id="roll-result"></p>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
