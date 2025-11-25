@@ -73,7 +73,7 @@ if (document.body.classList.contains('login-body')) {
             users.push({ username, password });
             setUsers(users); 
             sendEmailSimulation(username, 'register');
-            displayMessage('¡Registro exitoso! Ahora puedes iniciar sesión.', 'success');
+            displayMessage('puedes iniciar sesión.', 'success');
             
     isRegistering = false;
             formTitle.textContent = 'Iniciar Sesión';
@@ -198,3 +198,4 @@ if (document.body.classList.contains('main-body')) {
     fetchCSGOSkinInfo();
 
 }
+
