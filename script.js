@@ -10,27 +10,6 @@ const sendEmailSimulation = (username, action) => {
     
     const simulatedLocation = "Dirección IP (Simulada): 192.168.1.1, [Ubicación aproximada]";
     
-    let subject, actionText;
-    
-    if (action === 'register') {
-        subject = '🎉 ¡Bienvenido! Tu cuenta ha sido creada';
-        actionText = 'Registro de cuenta';
-    } else if (action === 'login') {
-        subject = '🔔 Alerta de Inicio de Sesión';
-        actionText = 'Inicio de sesión';
-    }
-
-   
-    console.log(`\n======================================================`);
-    console.log(`🚀 SIMULACIÓN DE EMAIL ENVIADO a: ${username}`);
-    console.log(`ASUNTO: ${subject}`);
-    console.log(`------------------------------------------------------`);
-    console.log(`Detalle del Evento: ${actionText}`);
-    console.log(`Lugar (Simulado): ${simulatedLocation}`);
-    console.log(`Hora en conectarse: ${connectionTime}`);
-    console.log(`======================================================\n`);
-};
-
 
 
 function checkAuthAndRedirect() {
@@ -71,13 +50,13 @@ if (document.body.classList.contains('login-body')) {
         e.preventDefault();
         isRegistering = !isRegistering;
         if (isRegistering) {
-            formTitle.textContent = 'Registrarse';
-            submitBtn.textContent = 'Crear Cuenta';
-            switchLink.textContent = 'Iniciar Sesión aquí';
+            formTitle.textContent = 'registrarse';
+            submitBtn.textContent = 'crear cuenta';
+            switchLink.textContent = 'iniciar sesión aquí';
         } else {
-            formTitle.textContent = 'Iniciar Sesión';
-            submitBtn.textContent = 'Ingresar';
-            switchLink.textContent = 'Regístrate aquí';
+            formTitle.textContent = 'iniciar sesión';
+            submitBtn.textContent = 'ingresar';
+            switchLink.textContent = 'regístrate aquí';
         }
         displayMessage('', ''); 
         usernameInput.value = '';
@@ -95,19 +74,19 @@ if (document.body.classList.contains('login-body')) {
         if (isRegistering) {
             // REGISTRO
             if (users.find(u => u.username === username)) {
-                displayMessage(' El usuario ya está registrado inicia sesión.');
+                displayMessage('  ya está registrado inicia sesión.');
                 return;
             }
             users.push({ username, password });
             setUsers(users); 
             sendEmailSimulation(username, 'register'); 
-            displayMessage('¡Registro exitoso! Ahora puedes iniciar sesión.', 'success');
+            displayMessage(' puedes iniciar sesión.', 'success');
             
             
             isRegistering = false;
-            formTitle.textContent = 'Iniciar Sesión';
-            submitBtn.textContent = 'Ingresar';
-            switchLink.textContent = 'Regístrate aquí';
+            formTitle.textContent = 'iniciar sesión';
+            submitBtn.textContent = 'ingresar';
+            switchLink.textContent = 'regístrate aquí';
             usernameInput.value = '';
             passwordInput.value = '';
 
@@ -174,7 +153,7 @@ if (document.body.classList.contains('main-body')) {
 
     rollDiceBtn.addEventListener('click', () => {
         rollDiceBtn.disabled = true; 
-        resultBox.textContent = '... GIRANDO ...';
+        resultBox.textContent = 'yyy';
         rollResult.textContent = '';
         resultBox.style.backgroundColor = '#2c3e50';
         resultBox.style.color = 'white';
@@ -246,11 +225,11 @@ if (document.body.classList.contains('main-body')) {
     const generateTrend = () => {
         const value = (Math.random() * 10).toFixed(2);
         const isPositive = Math.random() > 0.5;
-        const trendIcon = isPositive ? '⬆️' : '⬇️';
+        const trendIcon = isPositive ? '' : '';
         const trendColor = isPositive ? 'var(--success-color)' : 'var(--danger-color)';
         const description = isPositive ? 
             `Tendencia alcista. La demanda por ítems de esta colección ha **subido** un ${value}% en las últimas 24h.` :
-            `Tendencia bajista. La oferta ha **superado** la demanda, cayendo un ${value}% en las últimas 24h.`;
+            `Tendencia bajista. La oferta ha superado la demanda, cayendo un ${value}% en las últimas 24h.`;
 
         marketTrendDiv.style.color = trendColor;
         marketTrendDiv.innerHTML = `${trendIcon} ${value}%`;
@@ -260,4 +239,5 @@ if (document.body.classList.contains('main-body')) {
     generateTrend();
     
     setInterval(generateTrend, 10000); 
+
 }
