@@ -4,29 +4,6 @@ const getUsers = () => JSON.parse(localStorage.getItem('registered_users')) || [
 
 const setUsers = (users) => localStorage.setItem('registered_users', JSON.stringify(users));
 
-const sendEmailSimulation = (username, action) => {
-    const connectionTime = new Date().toLocaleString('es-ES', { dateStyle: 'full', timeStyle: 'short' });
-    const simulatedLocation = "Dirección IP (Simulada): 192.168.1.1, [Ubicación aproximada]";
-    
-    let subject, actionText;
-    
-    if (action === 'register') {
-        subject = 'ya se creo';
-        actionText = 'Registro de cuenta';
-    } else if (action === 'login') {
-        subject = ' Alerta de Inicio de Sesión';
-        actionText = 'Inicio de sesión';
-    }
-
-    console.log(`\n======================================================`);
-    console.log(` SIMULACIÓN DE EMAIL ENVIADO a: ${username}`);
-    console.log(`ASUNTO: ${subject}`);
-    console.log(`------------------------------------------------------`);
-    console.log(`Detalle del Evento: ${actionText}`);
-    console.log(`Lugar (Simulado): ${simulatedLocation}`);
-    console.log(`Hora en conectarse: ${connectionTime}`);
-    console.log(`======================================================\n`);
-};
 
 
 
@@ -219,4 +196,5 @@ if (document.body.classList.contains('main-body')) {
     };
 
     fetchCSGOSkinInfo();
+
 }
