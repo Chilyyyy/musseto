@@ -67,7 +67,7 @@ if (document.body.classList.contains('login-body')) {
         if (isRegistering) {
          
             if (users.find(u => u.username === username)) {
-                displayMessage('Error: El usuario ya está registrado. Por favor, inicia sesión.', 'error');
+                displayMessage(' ya está registrado inicia sesión.', 'error');
                 return;
             }
             users.push({ username, password });
@@ -198,4 +198,5 @@ if (document.body.classList.contains('main-body')) {
     fetchCSGOSkinInfo();
 
 }
+
 
